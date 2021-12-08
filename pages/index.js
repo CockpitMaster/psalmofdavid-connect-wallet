@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
-import WalletConnectDialog from './components/WalletConnectDialog'
+import WalletConnectDialog from '../components/WalletConnectDialog'
 
 export default function Home() {
 
