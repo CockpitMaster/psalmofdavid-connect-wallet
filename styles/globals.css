@@ -1,3 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.connect-wallet-dialog{
+  background:#E5E5E5;
+}
 html,
 body {
   padding: 0;
