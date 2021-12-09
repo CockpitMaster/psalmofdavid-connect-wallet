@@ -3,15 +3,14 @@ import { Fragment, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
-import CloseIcon from "../public/icons/close-icon.png";
-import MetamaskIcon from "../public/icons/metamask-icon.png";
-import BinanceIcon from "../public/icons/binance-icon.png";
-import WalletConnectIcon from "../public/icons/wallet-connect-icon.png";
+import CloseIcon from "../../public/icons/close-icon.png";
+import MetamaskIcon from "../../public/icons/metamask-icon.png";
+import BinanceIcon from "../../public/icons/binance-icon.png";
+import WalletConnectIcon from "../../public/icons/wallet-connect-icon.png";
 
-import { InjectedConnector } from "@web3-react/injected-connector";
 import { useWeb3React } from "@web3-react/core";
-import useAuth from "../hooks/useAuth";
-import { wallets } from "../config/wallets";
+import useAuth from "../../lib/connect-wallet/hooks/useAuth";
+import { wallets } from "../../lib/connect-wallet/config/wallets";
 
 export default function WalletConnectDialog() {
     const { active, account } = useWeb3React();

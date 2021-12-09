@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 import WalletConnectDialog from '../components/WalletConnectDialog'
-import { useEagerConnect } from '../hooks/useEagerConnect'
+import { useEagerConnect } from '../../lib/connect-wallet/hooks/useEagerConnect'
 
 export default function Home() {
 
