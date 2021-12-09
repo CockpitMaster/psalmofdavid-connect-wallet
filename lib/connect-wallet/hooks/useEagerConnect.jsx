@@ -1,3 +1,4 @@
+import { CHAIN_ID } from "@/lib/connect-wallet/config/chains";
 import { useEffect } from "react";
 import { ConnectorNames } from "../config/connectors";
 import { ACTIVE_CHAIN_KEY, ACTIVE_CONNECTOR_KEY } from "../config/localstorage";
@@ -23,7 +24,7 @@ export const useEagerConnect = () => {
 
   useEffect(() => {
     const connectorName = window.localStorage.getItem(ACTIVE_CONNECTOR_KEY);
-    const chainId = parseInt(window.localStorage.getItem(ACTIVE_CHAIN_KEY), 10);
+    const chainId = parseInt(CHAIN_ID, 10);
 
     if (connectorName === ConnectorNames.BSC) {
       const isConnectorBinanceChain = connectorName === ConnectorNames.BSC;

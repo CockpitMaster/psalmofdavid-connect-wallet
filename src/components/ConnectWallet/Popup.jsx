@@ -25,7 +25,7 @@ export const Popup = ({ isOpen, onClose }) => {
 
     const wallet = wallets.find((x) => x.id === id);
     const connectorName = wallet.connectorName;
-    login(connectorName, parseInt(CHAIN_ID, 10));
+    login(connectorName);
     setIsConnecting(true);
   };
 
