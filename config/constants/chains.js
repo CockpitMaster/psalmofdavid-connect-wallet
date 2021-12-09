@@ -1,8 +1,8 @@
 import rpcUrls from './rpcUrls'
 
-const configured = parseInt(process.env.NEXT_PUBLIC_CHAIN_ID, 10)
+const configured = process.env.NEXT_PUBLIC_BINANCE_MAINNET_CHAIN_ID
 
-export const FALLBACK_CHAIN_ID = configured || 56
+export const FALLBACK_CHAIN_ID = configured || 97
 
 const chains = [
   {

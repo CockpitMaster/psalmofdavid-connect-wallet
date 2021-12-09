@@ -1,20 +1,21 @@
 import { JsonRpcProvider, Web3Provider } from '@ethersproject/providers'
+import rpcUrls from '../config/constants/rpcUrls'
+import { getOne } from './random'
 
-import { POLLING_INTERVAL } from '../config/constants/connectors'
-import getNodeUrl from './blockchain/getRpcUrl'
+//import { POLLING_INTERVAL } from '../config/constants/connectors'
+//import getNodeUrl from './blockchain/getRpcUrl'
 
-// Fallback Provider
+//get chain id from .env
+const configured = parseInt(process.env.NEXT_PUBLIC_BINANCE_MAINNET_CHAIN_ID, 10)
+const selectCorrespondingChainUrl = rpcUrls[configured]
+
+
 export const getProvider = () => {
-  const rpcUrl = getNodeUrl()
+  
+  const rpcUrl = getOne(...selectCorrespondingChainUrl)
+  console.log('rpcUrl',rpcUrl)
   const library = new JsonRpcProvider(rpcUrl)
-
-  library.pollingInterval = POLLING_INTERVAL
-  return library
-}
-
-export const getLibrary = (provider) => {
-  const library = new Web3Provider(provider)
-
-  library.pollingInterval = POLLING_INTERVAL
+  console.log(library)
+  //library.pollingInterval = POLLING_INTERVAL
   return library
 }

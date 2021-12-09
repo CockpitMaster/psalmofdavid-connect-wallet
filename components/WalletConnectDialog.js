@@ -10,35 +10,61 @@ import WalletConnectIcon from "../public/icons/wallet-connect-icon.png";
 
 import { InjectedConnector } from "@web3-react/injected-connector";
 import { useWeb3React } from "@web3-react/core";
-
-const metamask = new InjectedConnector({
-    supportedChainIds: [1, 3, 4, 5, 42, 56, 97],
-});
+import useAuth from "../hooks/useAuth";
+import { wallets } from "../config/wallets";
 
 export default function WalletConnectDialog() {
+    const { active, account } = useWeb3React();
     let [isOpen, setIsOpen] = useState(false);
+    const { login, logout } = useAuth();
+
+    const [networkId, setNetworkId] = useState();
+    const [walletId, setWalletId] = useState();
 
     function closeModal() {
         setIsOpen(false);
     }
 
     function openModal() {
-        setIsOpen(true);
-    }
+        const networkChainId = parseInt(
+            process.env.NEXT_PUBLIC_BINANCE_TESTNET_CHAIN_ID
+        );
+        console.log(typeof networkChainId);
+        setNetworkId(networkChainId);
 
-    const { account, library, chainId, activate, deactivate, error } = useWeb3React();
-    console.log(account)
-
-    //connecting to  a metamsk wallet
-    async function connect(id) {
-        if (id === 1) {
-            try {
-                await activate(metamask);
-            } catch (error) {
-                console.log(error);
-            }
+        const wallet = wallets.find((wallet) => wallet.id === "1");
+        setWalletId(wallet);
+        if(active){
+            logout();
+            setIsOpen(false);
+        }else{
+            setIsOpen(true)
         }
     }
+
+    const connect = (id) => {
+        if (id === 1) {
+            if (!networkId || !walletId) {
+                return;
+            }
+
+            if (active) {
+                logout();
+            }
+            //setNetworkId(97)
+            console.log(process.env.NEXT_PUBLIC_BINANCE_TESTNET_CHAIN_ID);
+
+            const wallet = wallets.find(
+                (wallet) => wallet.id === id.toString()
+            );
+            console.log(wallet);
+            const connectorName = wallet.connectorName;
+
+            //setWalletId(id);
+            login(connectorName, networkId);
+            closeModal()
+        }
+    };
 
     const buttons = [
         {
@@ -65,8 +91,11 @@ export default function WalletConnectDialog() {
                 onClick={openModal}
                 className="px-4 py-2 mt-4 text-sm font-medium text-white bg-black rounded-md bg-opacity-20 hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
             >
-                Connect Wallet
+                {active ? "Connected Wallet" : "Connect Wallet"}
             </button>
+            <span className="text-green-500  pl-4">
+                {active ? account : null}
+            </span>
 
             <Transition appear show={isOpen} as={Fragment}>
                 <Dialog
@@ -146,7 +175,12 @@ export default function WalletConnectDialog() {
                                             <p className="py-4 text-base">
                                                 {button.buttonText}{" "}
                                             </p>
-                                            <span className="text-green-500 absolute pl-4">{button.buttonText === "Metamask" && account ? account: null}</span>
+                                            {/* <span className="text-green-500 absolute pl-4">
+                                                {button.buttonText ===
+                                                    "Metamask" && active
+                                                    ? account
+                                                    : null}
+                                            </span> */}
                                         </button>
                                     ))}
                                 </div>
