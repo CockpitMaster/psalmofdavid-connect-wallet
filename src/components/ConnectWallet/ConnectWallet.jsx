@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useWeb3React } from "@web3-react/core";
 import useAuth from "@/lib/connect-wallet/hooks/useAuth";
 import { Popup } from "./Popup";
-import { CHAIN_ID, NetworkNames } from "@/lib/connect-wallet/config/chains";
+import { NetworkNames } from "@/lib/connect-wallet/config/chains";
 
 export default function ConnectWallet() {
   const { active, account, chainId } = useWeb3React();

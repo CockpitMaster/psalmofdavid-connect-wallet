@@ -4,7 +4,6 @@ import useAuth from "@/lib/connect-wallet/hooks/useAuth";
 import { wallets } from "@/lib/connect-wallet/config/wallets";
 import { Modal } from "@/components/Modal/Modal";
 import { useWeb3React } from "@web3-react/core";
-import { CHAIN_ID } from "@/lib/connect-wallet/config/chains";
 import { Disclaimer } from "@/components/ConnectWallet/Disclaimer";
 import { WalletList } from "@/components/ConnectWallet/WalletList";
 import { useEffect, useState } from "react";

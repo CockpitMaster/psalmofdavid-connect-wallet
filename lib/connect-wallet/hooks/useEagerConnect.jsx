@@ -24,19 +24,19 @@ export const useEagerConnect = () => {
 
   useEffect(() => {
     const connectorName = window.localStorage.getItem(ACTIVE_CONNECTOR_KEY);
-    const chainId = parseInt(CHAIN_ID, 10);
+    const networkId = parseInt(CHAIN_ID, 10);
 
     if (connectorName === ConnectorNames.BSC) {
       const isConnectorBinanceChain = connectorName === ConnectorNames.BSC;
       const isBinanceChainDefined = Reflect.has(window, "BinanceChain");
 
       if (isConnectorBinanceChain && !isBinanceChainDefined) {
-        _binanceChainListener().then(() => login(connectorName, chainId));
+        _binanceChainListener().then(() => login(connectorName, networkId));
 
         return;
       }
     }
 
-    login(connectorName, chainId);
+    login(connectorName, networkId);
   }, [login]);
 };

@@ -2,12 +2,12 @@ import { CHAIN_ID } from "@/lib/connect-wallet/config/chains";
 import { UnsupportedChainIdError, useWeb3React } from "@web3-react/core";
 import {
   NoEthereumProviderError,
-  UserRejectedRequestError as UserRejectedRequestErrorInjected,
-} from "@web3-react/injected-connector";
+  UserRejectedRequestErrorInjected,
+} from "@/lib/connect-wallet/injected/errors";
 import {
-  UserRejectedRequestError as UserRejectedRequestErrorWalletConnect,
+  UserRejectedRequestErrorWalletConnect,
   WalletConnectConnector,
-} from "@web3-react/walletconnect-connector";
+} from "@/lib/connect-wallet/walletconnect/errors";
 import { useCallback } from "react";
 import { ACTIVE_CONNECTOR_KEY } from "../config/localstorage";
 import { getConnectorByName } from "../utils/connectors";
@@ -19,7 +19,7 @@ const useAuth = () => {
   const login = useCallback(
     (connectorName) => {
       const networkId = parseInt(CHAIN_ID, 10);
-      const connector = getConnectorByName(connectorName);
+      const connector = getConnectorByName(connectorName, networkId);
 
       if (!connector) {
         console.error(
@@ -79,12 +79,17 @@ const useAuth = () => {
   );
 
   const logout = useCallback(() => {
+    const networkId = parseInt(CHAIN_ID, 10);
+
     deactivate();
     window.localStorage.removeItem(ACTIVE_CONNECTOR_KEY);
 
     // This localStorage key is set by @web3-react/walletconnect-connector
     if (window.localStorage.getItem("walletconnect")) {
-      const connector = getConnectorByName(ConnectorNames.WalletConnect);
+      const connector = getConnectorByName(
+        ConnectorNames.WalletConnect,
+        networkId
+      );
       connector.close();
       connector.walletConnectProvider = null;
     }
