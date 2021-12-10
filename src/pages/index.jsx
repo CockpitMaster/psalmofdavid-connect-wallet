@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { useEagerConnect } from "@/lib/connect-wallet/hooks/useEagerConnect";
+import { useEagerConnect } from "src/hooks/useEagerConnect";
 import WalletConnectDialog from "@/components/ConnectWallet/ConnectWallet";
 
 export default function Home() {

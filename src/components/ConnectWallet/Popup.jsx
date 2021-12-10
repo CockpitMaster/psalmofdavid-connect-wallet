@@ -1,12 +1,14 @@
 import { Dialog } from "@headlessui/react";
 
-import useAuth from "@/lib/connect-wallet/hooks/useAuth";
+import useAuth from "src/hooks/useAuth";
 import { wallets } from "@/lib/connect-wallet/config/wallets";
 import { Modal } from "@/components/Modal/Modal";
 import { useWeb3React } from "@web3-react/core";
 import { Disclaimer } from "@/components/ConnectWallet/Disclaimer";
 import { WalletList } from "@/components/ConnectWallet/WalletList";
 import { useEffect, useState } from "react";
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+import Loader from "react-loader-spinner";
 
 export const Popup = ({ isOpen, onClose }) => {
   const [isConnecting, setIsConnecting] = useState(false);
@@ -15,17 +17,18 @@ export const Popup = ({ isOpen, onClose }) => {
 
   useEffect(() => {
     if (!isOpen) setIsConnecting(false);
-  }, [isOpen]);
+
+    if (active) {
+      setIsConnecting(false);
+      onClose();
+    }
+  }, [isOpen, active]);
 
   const onConnect = (id) => {
-    if (active) {
-      logout();
-    }
-
+    setIsConnecting(true);
     const wallet = wallets.find((x) => x.id === id);
     const connectorName = wallet.connectorName;
     login(connectorName);
-    setIsConnecting(true);
   };
 
   return (
@@ -51,7 +54,14 @@ export const Popup = ({ isOpen, onClose }) => {
           </>
         )}
 
-        {isConnecting && <>Connecting</>}
+        {isConnecting && (
+          <>
+            <div className="mt-8 flex justify-left items-center">
+              <Loader type="Rings" color="#ff8b00"></Loader>
+              <p className="text-base">Connecting</p>
+            </div>
+          </>
+        )}
       </div>
     </Modal>
   );

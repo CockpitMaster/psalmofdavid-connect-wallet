@@ -2,7 +2,7 @@ import { useState } from "react";
 import Image from "next/image";
 
 import { useWeb3React } from "@web3-react/core";
-import useAuth from "@/lib/connect-wallet/hooks/useAuth";
+import useAuth from "src/hooks/useAuth";
 import { Popup } from "./Popup";
 import { NetworkNames } from "@/lib/connect-wallet/config/chains";
 
