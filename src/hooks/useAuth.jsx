@@ -14,6 +14,7 @@ import { getConnectorByName } from "../../lib/connect-wallet/utils/connectors";
 import { setupNetwork } from "../../lib/connect-wallet/utils/wallet";
 import { ConnectorNames } from "@/lib/connect-wallet/config/connectors";
 import { wallets } from "@/lib/connect-wallet/config/wallets";
+import { NoBscProviderError } from "@binance-chain/bsc-connector";
 
 const useAuth = () => {
   const { activate, deactivate, chainId } = useWeb3React();
@@ -63,7 +64,10 @@ const useAuth = () => {
         } else {
           window.localStorage.removeItem(ACTIVE_CONNECTOR_KEY);
 
-          if (error instanceof NoEthereumProviderError) {
+          if (
+            error instanceof NoEthereumProviderError ||
+            error instanceof NoBscProviderError
+          ) {
             console.log("error", {
               title: "Provider Error",
               message: "Could not connect. No provider found",
@@ -75,10 +79,10 @@ const useAuth = () => {
             error instanceof UserRejectedRequestErrorInjected ||
             error instanceof UserRejectedRequestErrorWalletConnect
           ) {
-            /* if (connector instanceof WalletConnectConnector) {
+            if (connector instanceof WalletConnectConnector) {
               const walletConnector = connector;
               walletConnector.walletConnectProvider = null;
-            } */
+            }
             console.log("error", {
               title: "Authorization Error",
               message: "Please authorize to access your account",
@@ -99,14 +103,14 @@ const useAuth = () => {
     window.localStorage.removeItem(ACTIVE_CONNECTOR_KEY);
 
     // This localStorage key is set by @web3-react/walletconnect-connector
-    /* if (window.localStorage.getItem("walletconnect")) {
+    if (window.localStorage.getItem("walletconnect")) {
       const connector = getConnectorByName(
         ConnectorNames.WalletConnect,
         networkId
       );
       connector.close();
       connector.walletConnectProvider = null;
-    } */
+    }
   }, [deactivate]);
 
   return { logout, login };
