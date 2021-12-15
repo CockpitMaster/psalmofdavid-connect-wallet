@@ -13,11 +13,18 @@ import { ACTIVE_CONNECTOR_KEY } from "../../lib/connect-wallet/config/localstora
 import { getConnectorByName } from "../../lib/connect-wallet/utils/connectors";
 import { setupNetwork } from "../../lib/connect-wallet/utils/wallet";
 import { ConnectorNames } from "@/lib/connect-wallet/config/connectors";
+import { wallets } from "@/lib/connect-wallet/config/wallets";
 
 const useAuth = () => {
-  const { activate, deactivate } = useWeb3React();
+  const { activate, deactivate, chainId } = useWeb3React();
 
   const CHAIN_ID = process.env.NEXT_PUBLIC_CHAIN_ID;
+  const networkInformation = [
+    {
+      id: 56,
+      name: "Binance Smart Chain Network",
+    },
+  ];
   const defaultNetworkId = parseInt(CHAIN_ID, 10);
   const login = useCallback(
     (connectorName, networkId = defaultNetworkId) => {
@@ -33,7 +40,7 @@ const useAuth = () => {
 
       activate(connector, async (error) => {
         if (error instanceof UnsupportedChainIdError) {
-          const hasSetup = await setupNetwork(connectorName);
+          const hasSetup = await setupNetwork(connectorName, networkId);
 
           if (hasSetup) {
             activate(connector, () => {
@@ -44,9 +51,14 @@ const useAuth = () => {
 
           window.localStorage.removeItem(ACTIVE_CONNECTOR_KEY);
 
+          const wallet = wallets.find(
+            (wallet) => wallet.connectorName === connectorName
+          );
+
+          const network = networkInformation.find((x) => x.id === networkId);
           console.log("error", {
             title: "Wrong network",
-            message: `Please switch to <strong></strong> in your <strong></strong> wallet`,
+            message: `Please switch to <strong>${network.name}</strong> in your <strong>${wallet.name}</strong> wallet`,
           });
         } else {
           window.localStorage.removeItem(ACTIVE_CONNECTOR_KEY);
