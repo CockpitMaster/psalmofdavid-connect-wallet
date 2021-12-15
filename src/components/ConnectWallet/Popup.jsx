@@ -42,7 +42,7 @@ export const Popup = ({ isOpen, onClose }) => {
         </button>
         <Dialog.Title
           as="h3"
-          className="text-3xl font-bold text-black-900 leading-9"
+          className="font-sora text-3xl font-bold text-black-900 leading-9"
         >
           Connect Wallet
         </Dialog.Title>
