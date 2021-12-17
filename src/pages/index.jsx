@@ -1,7 +1,8 @@
 import Head from "next/head";
 import { useEagerConnect } from "src/hooks/useEagerConnect";
-import WalletConnectDialog from "@/components/ConnectWallet/ConnectWallet";
-//import { NepTokenDetails } from "@/components/NepTokenDetails";
+import ConnectWallet from "@/components/ConnectWallet/ConnectWallet";
+import { ConnectionDetails } from "@/components/ConnectionDetails/ConnectionDetails";
+import { SignMessage } from "@/components/SignMessage/SignMessage";
 
 export default function Home() {
   useEagerConnect();
@@ -18,10 +19,9 @@ export default function Home() {
         <h1 className="text-3xl sm:text-5xl lg:text-6xl leading-none font-extrabold text-gray-900 tracking-tight mb-8">
           Welcome to Neptune Mutual
         </h1>
-        <WalletConnectDialog />
-        {/* <div className="xl:py-6 xl:px-12 xl:bg-gray-400 xl:bg-opacity-5 xl:rounded-2xl flex-grow">
-          <NepTokenDetails />
-        </div> */}
+        <ConnectWallet />
+        <ConnectionDetails />
+        <SignMessage />
       </main>
     </div>
   );

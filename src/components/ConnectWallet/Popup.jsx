@@ -22,7 +22,7 @@ export const Popup = ({ isOpen, onClose }) => {
       setIsConnecting(false);
       onClose();
     }
-  }, [isOpen, active]);
+  }, [isOpen, active, onClose]);
 
   const onConnect = (id) => {
     setIsConnecting(true);
