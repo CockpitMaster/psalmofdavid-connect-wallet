@@ -7,8 +7,7 @@ import { useWeb3React } from "@web3-react/core";
 import { Disclaimer } from "@/components/ConnectWallet/Disclaimer";
 import { WalletList } from "@/components/ConnectWallet/WalletList";
 import { useEffect, useState } from "react";
-import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
-import Loader from "react-loader-spinner";
+import { Loader } from "@/components/Loader/Loader";
 
 export const Popup = ({ isOpen, onClose }) => {
   const [isConnecting, setIsConnecting] = useState(false);
@@ -57,7 +56,7 @@ export const Popup = ({ isOpen, onClose }) => {
         {isConnecting && (
           <>
             <div className="mt-8 flex justify-left items-center">
-              <Loader type="Rings" color="#ff8b00"></Loader>
+              <Loader />
               <p className="text-base">Connecting</p>
             </div>
           </>
