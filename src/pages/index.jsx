@@ -3,6 +3,7 @@ import { useEagerConnect } from "src/hooks/useEagerConnect";
 import ConnectWallet from "@/components/ConnectWallet/ConnectWallet";
 import { ConnectionDetails } from "@/components/ConnectionDetails/ConnectionDetails";
 import { SignMessage } from "@/components/SignMessage/SignMessage";
+import { SimpleRW } from "@/components/SimpleRW/SimpleRW";
 
 export default function Home() {
   useEagerConnect();
@@ -22,6 +23,7 @@ export default function Home() {
         <ConnectWallet />
         <ConnectionDetails />
         <SignMessage />
+        <SimpleRW />
       </main>
     </div>
   );
