@@ -103,7 +103,7 @@ const activateConnector = async (connectorName, activate) => {
         }
       }
     }
-    console.log(error.name, error.message);
+    console.error(error);
   });
 };
 
@@ -132,9 +132,7 @@ const useAuth = () => {
       return;
     }
 
-    const handleDisconnect = () => {
-      deactivateConnector(deactivate);
-    };
+    const handleDisconnect = () => deactivateConnector(deactivate);
 
     console.log("register", library);
     library.provider.on("disconnect", handleDisconnect);
@@ -145,15 +143,14 @@ const useAuth = () => {
   }, [deactivate, library]);
 
   const login = useCallback(
-    (connectorName) => {
-      activateConnector(connectorName, activate);
-    },
+    (connectorName) => activateConnector(connectorName, activate),
     [activate]
   );
 
-  const logout = useCallback(() => {
-    deactivateConnector(deactivate);
-  }, [deactivate]);
+  const logout = useCallback(
+    () => deactivateConnector(deactivate),
+    [deactivate]
+  );
 
   return { logout, login };
 };
