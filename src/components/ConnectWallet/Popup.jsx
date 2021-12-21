@@ -32,7 +32,7 @@ export const Popup = ({ isOpen, onClose }) => {
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
-      <div className="inline-block w-npm-width h-npm-height max-w-md p-12 my-8 overflow-hidden text-left align-middle transition-all transform shadow-xl rounded-2xl bg-npm-blue">
+      <div className="inline-block max-w-md p-12 my-8 overflow-hidden text-left align-middle transition-all transform shadow-xl rounded-2xl bg-f1f3f6">
         <button
           className="absolute top-7 right-14 cursor-pointer"
           onClick={onClose}
