@@ -10,6 +10,7 @@ module.exports = {
       colors: {
         f1f3f6: "#f1f3f6",
         "222b37": "#222b37",
+        "D4DFEE": "#D4DFEE"
       },
     },
   },
