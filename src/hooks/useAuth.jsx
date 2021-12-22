@@ -19,6 +19,7 @@ const activateConnector = async (connectorName, activate) => {
     console.error(
       "Unable to find connector: Could not identify from local storage"
     );
+    return;
   }
 
   window.localStorage.setItem(ACTIVE_CONNECTOR_KEY, connectorName);
