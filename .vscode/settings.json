@@ -22,5 +22,7 @@
         "postcss": "css"
     },
     "editor.tabSize": 2,
-    "javascript.preferences.importModuleSpecifier": "non-relative"
+    "javascript.preferences.importModuleSpecifier": "non-relative",
+    "color-highlight.markerType": "dot-before",
+    "color-highlight.markRuler": false,
 }
