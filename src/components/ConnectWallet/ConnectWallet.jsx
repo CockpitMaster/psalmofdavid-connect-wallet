@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useWeb3React } from "@web3-react/core";
 import useAuth from "src/hooks/useAuth";
 import { Popup } from "./Popup";
-import { NetworkNames } from "@/lib/connect-wallet/config/chains";
+import { ChainLogos, NetworkNames } from "@/lib/connect-wallet/config/chains";
 import { CHAIN_ID } from "@/src/config/environment";
 import { Button } from "@/components/Button";
 
@@ -32,15 +32,20 @@ export default function ConnectWallet() {
     button = <Button onClick={logout}>Disconnect</Button>;
   }
 
+  const ChainLogo = ChainLogos[parseInt(CHAIN_ID, 10)] || ChainLogos[1];
+
   const network = (
-    <div className="inline-block mt-6 mr-4 bg-white text-black font-semibold py-3 px-6 border border-d4dfee rounded-xl">
-      {NetworkNames[parseInt(CHAIN_ID, 10)]}
+    <div className="flex items-center mt-6 mr-4 bg-white text-black font-semibold py-3 px-6 border border-d4dfee rounded-xl">
+      <ChainLogo width={24} height={24} />{" "}
+      <p className="block ml-2">{NetworkNames[parseInt(CHAIN_ID, 10)]}</p>
     </div>
   );
 
   return (
     <>
-      {network} {button}
+      <div className="flex items-center">
+        {network} {button}
+      </div>
       <Popup isOpen={isOpen} onClose={onClose} />
     </>
   );
