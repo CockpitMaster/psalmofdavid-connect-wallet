@@ -17,7 +17,7 @@ export default function Home() {
       </Head>
 
       <main className="p-8">
-        <h1 className="text-3xl sm:text-5xl lg:text-6xl leading-none font-extrabold text-gray-900 tracking-tight mb-8">
+        <h1 className="text-h2 sm:text-h1 leading-none font-extrabold text-black tracking-tight mb-8">
           Welcome to Neptune Mutual
         </h1>
         <ConnectWallet />

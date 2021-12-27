@@ -17,7 +17,7 @@ class MyDocument extends Document {
           />
         </Head>
         <body
-          className="font-poppins"
+          className="font-poppins text-black text-para"
           style={{
             background:
               "radial-gradient(50% 50% at 50% 50%, #fc077d36 0%, rgba(235, 235, 255, 0.9) 100%)",

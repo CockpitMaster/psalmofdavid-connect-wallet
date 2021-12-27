@@ -45,7 +45,7 @@ const activateConnector = async (connectorName, activate) => {
 
       console.log("error", {
         title: "Wrong network",
-        message: `Please switch to <strong>${NetworkNames[networkId]}</strong> in your <strong></strong> wallet`,
+        message: `Please switch to <strong>${NetworkNames[networkId]}</strong> in your <strong>${wallet}</strong> wallet`,
       });
     } else {
       window.localStorage.removeItem(ACTIVE_CONNECTOR_KEY);
@@ -135,10 +135,10 @@ const useAuth = () => {
 
     const handleDisconnect = () => deactivateConnector(deactivate);
 
-    console.log("register", library);
+    // Registering events
     library.provider.on("disconnect", handleDisconnect);
     return () => {
-      console.log("unregister", library);
+      // Unegistering events
       library.provider.removeListener("disconnect", handleDisconnect);
     };
   }, [deactivate, library]);
