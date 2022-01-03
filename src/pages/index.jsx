@@ -4,9 +4,12 @@ import ConnectWallet from "@/components/ConnectWallet/ConnectWallet";
 import { ConnectionDetails } from "@/components/ConnectionDetails/ConnectionDetails";
 import { SignMessage } from "@/components/SignMessage/SignMessage";
 import { SimpleRW } from "@/components/SimpleRW/SimpleRW";
+import { useInactiveListener } from "@/src/hooks/useInactiveListener";
+import { CHAIN_ID, networkId } from "@/src/config/environment";
 
 export default function Home() {
-  useEagerConnect();
+  useEagerConnect(networkId);
+  useInactiveListener(networkId);
 
   return (
     <div>

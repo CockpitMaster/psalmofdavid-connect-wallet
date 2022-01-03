@@ -9,11 +9,12 @@ import { WalletList } from "@/components/ConnectWallet/WalletList";
 import { useEffect, useState } from "react";
 import { Loader } from "@/components/Loader/Loader";
 import CloseIcon from "@/components/icons/close";
+import { networkId } from "@/src/config/environment";
 
 export const Popup = ({ isOpen, onClose }) => {
   const [isConnecting, setIsConnecting] = useState(false);
   const { active, account } = useWeb3React();
-  const { login, logout } = useAuth();
+  const { login, logout } = useAuth(networkId);
 
   useEffect(() => {
     if (!isOpen) setIsConnecting(false);

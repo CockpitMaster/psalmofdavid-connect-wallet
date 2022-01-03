@@ -5,7 +5,6 @@ import {
   ACTIVE_CHAIN_KEY,
   ACTIVE_CONNECTOR_KEY,
 } from "../../lib/connect-wallet/config/localstorage";
-
 import useAuth from "./useAuth";
 
 const _binanceChainListener = async () =>
@@ -22,12 +21,11 @@ const _binanceChainListener = async () =>
     })
   );
 
-export const useEagerConnect = () => {
-  const { login } = useAuth();
+export const useEagerConnect = (networkId) => {
+  const { login } = useAuth(networkId);
 
   useEffect(() => {
     const connectorName = window.localStorage.getItem(ACTIVE_CONNECTOR_KEY);
-    const networkId = parseInt(CHAIN_ID, 10);
 
     if (connectorName === ConnectorNames.BSC) {
       const isConnectorBinanceChain = connectorName === ConnectorNames.BSC;
@@ -41,5 +39,5 @@ export const useEagerConnect = () => {
     }
 
     login(connectorName, networkId);
-  }, [login]);
+  }, [login, networkId]);
 };

@@ -6,13 +6,11 @@ import { Contract } from "@ethersproject/contracts";
 import { getProviderOrSigner } from "@/lib/connect-wallet/utils/web3";
 import * as contracts from "@/src/config/contracts";
 import SimpleRWABI from "@/src/config/abis/SimpleRW.json";
-import { CHAIN_ID } from "@/src/config/environment";
+import { CHAIN_ID, networkId } from "@/src/config/environment";
 import { AddressZero } from "@ethersproject/constants";
 import { NetworkNames } from "@/lib/connect-wallet/config/chains";
 import { DataDisplay } from "@/components/DataDisplay";
 import { Button } from "@/components/Button";
-
-const networkId = parseInt(CHAIN_ID, 10);
 
 export const SimpleRW = () => {
   const [signature, setSignature] = useState("abc");

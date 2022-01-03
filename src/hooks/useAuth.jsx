@@ -10,9 +10,7 @@ import { NetworkNames } from "@/lib/connect-wallet/config/chains";
 import { setupNetwork } from "@/lib/connect-wallet/utils/wallet";
 import { ConnectorNames } from "@/lib/connect-wallet/config/connectors";
 
-const activateConnector = async (connectorName, activate) => {
-  const networkId = parseInt(CHAIN_ID, 10);
-
+const activateConnector = async (connectorName, activate, networkId) => {
   const connector = await getConnectorByName(connectorName, networkId);
 
   if (!connector) {
@@ -108,9 +106,7 @@ const activateConnector = async (connectorName, activate) => {
   });
 };
 
-const deactivateConnector = async (deactivate) => {
-  const networkId = parseInt(CHAIN_ID, 10);
-
+const deactivateConnector = async (deactivate, networkId) => {
   deactivate();
   window.localStorage.removeItem(ACTIVE_CONNECTOR_KEY);
 
@@ -125,27 +121,38 @@ const deactivateConnector = async (deactivate) => {
   }
 };
 
-const useAuth = () => {
-  const { activate, deactivate, chainId, library } = useWeb3React();
+const useAuth = (networkId) => {
+  const { activate, deactivate, chainId, library, connector } = useWeb3React();
 
   useEffect(() => {
-    if (!library) {
+    if (!library || !library.provider) {
       return;
     }
 
-    const handleDisconnect = () => deactivateConnector(deactivate);
+    const handleDisconnect = () => deactivateConnector(deactivate, networkId);
 
-    // Registering events
     library.provider.on("disconnect", handleDisconnect);
     return () => {
-      // Unegistering events
       library.provider.removeListener("disconnect", handleDisconnect);
     };
-  }, [deactivate, library]);
+  }, [library, deactivate, networkId]);
+
+  useEffect(() => {
+    if (!connector) {
+      return;
+    }
+
+    const handleDisconnect = () => deactivateConnector(deactivate, networkId);
+
+    connector.addListener("Web3ReactDeactivate", handleDisconnect);
+    return () => {
+      connector.removeListener("Web3ReactDeactivate", handleDisconnect);
+    };
+  }, [connector, deactivate, networkId]);
 
   const login = useCallback(
-    (connectorName) => activateConnector(connectorName, activate),
-    [activate]
+    (connectorName) => activateConnector(connectorName, activate, networkId),
+    [activate, networkId]
   );
 
   const logout = useCallback(
