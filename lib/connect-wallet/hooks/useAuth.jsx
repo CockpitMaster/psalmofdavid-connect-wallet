@@ -1,12 +1,12 @@
 import { useCallback, useEffect } from "react";
 import { UnsupportedChainIdError, useWeb3React } from "@web3-react/core";
 
-import { ACTIVE_CONNECTOR_KEY } from "@/lib/connect-wallet/config/localstorage";
-import { getConnectorByName } from "@/lib/connect-wallet/utils/connectors";
-import { wallets } from "@/lib/connect-wallet/config/wallets";
-import { NetworkNames } from "@/lib/connect-wallet/config/chains";
-import { setupNetwork } from "@/lib/connect-wallet/utils/wallet";
-import { ConnectorNames } from "@/lib/connect-wallet/config/connectors";
+import { ACTIVE_CONNECTOR_KEY } from "../config/localstorage";
+import { getConnectorByName } from "../utils/connectors";
+import { wallets } from "../config/wallets";
+import { NetworkNames } from "../config/chains";
+import { setupNetwork } from "../utils/wallet";
+import { ConnectorNames } from "../config/connectors";
 
 const activateConnector = async (connectorName, activate, networkId) => {
   const connector = await getConnectorByName(connectorName, networkId);
@@ -48,7 +48,7 @@ const activateConnector = async (connectorName, activate, networkId) => {
 
       if (connectorName === ConnectorNames.Injected) {
         const { NoEthereumProviderError, UserRejectedRequestErrorInjected } =
-          await import("@/lib/connect-wallet/injected/errors");
+          await import("../injected/errors");
 
         if (error instanceof NoEthereumProviderError) {
           console.log("error", {
@@ -71,7 +71,7 @@ const activateConnector = async (connectorName, activate, networkId) => {
         const {
           UserRejectedRequestErrorWalletConnect,
           WalletConnectConnector,
-        } = await import("@/lib/connect-wallet/walletconnect/errors");
+        } = await import("../walletconnect/errors");
 
         if (error instanceof UserRejectedRequestErrorWalletConnect) {
           if (connector instanceof WalletConnectConnector) {
@@ -87,9 +87,7 @@ const activateConnector = async (connectorName, activate, networkId) => {
       }
 
       if (connectorName === ConnectorNames.BSC) {
-        const { NoBscProviderError } = await import(
-          "@/lib/connect-wallet/binance-wallet/errors"
-        );
+        const { NoBscProviderError } = await import("../binance-wallet/errors");
 
         if (error instanceof NoBscProviderError) {
           console.log("error", {
