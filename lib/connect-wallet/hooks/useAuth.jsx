@@ -8,13 +8,18 @@ import { NetworkNames } from "../config/chains";
 import { setupNetwork } from "../utils/wallet";
 import { ConnectorNames } from "../config/connectors";
 
-const activateConnector = async (connectorName, activate, networkId) => {
+const noOp = () => {};
+
+const activateConnector = async (
+  connectorName,
+  activate,
+  networkId,
+  notify
+) => {
   const connector = await getConnectorByName(connectorName, networkId);
 
   if (!connector) {
-    console.error(
-      "Unable to find connector: Could not identify from local storage"
-    );
+    console.info("Invalid Connector Name", connectorName);
     return;
   }
 
@@ -37,12 +42,13 @@ const activateConnector = async (connectorName, activate, networkId) => {
         (wallet) => wallet.connectorName === connectorName
       );
 
-      console.error(error);
-
-      console.log("error", {
+      notify({
+        type: "error",
         title: "Wrong network",
         message: `Please switch to <strong>${NetworkNames[networkId]}</strong> in your <strong>${wallet}</strong> wallet`,
+        error: error,
       });
+      return;
     } else {
       window.localStorage.removeItem(ACTIVE_CONNECTOR_KEY);
 
@@ -51,17 +57,21 @@ const activateConnector = async (connectorName, activate, networkId) => {
           await import("../injected/errors");
 
         if (error instanceof NoEthereumProviderError) {
-          console.log("error", {
+          notify({
+            type: "error",
             title: "Provider Error",
             message: "Could not connect. No provider found",
+            error: error,
           });
           return;
         }
 
         if (error instanceof UserRejectedRequestErrorInjected) {
-          console.log("error", {
+          notify({
+            type: "error",
             title: "Authorization Error",
             message: "Please authorize to access your account",
+            error: error,
           });
           return;
         }
@@ -78,9 +88,11 @@ const activateConnector = async (connectorName, activate, networkId) => {
             const walletConnector = connector;
             walletConnector.walletConnectProvider = null;
           }
-          console.log("error", {
+          notify({
+            type: "error",
             title: "Authorization Error",
             message: "Please authorize to access your account",
+            error: error,
           });
           return;
         }
@@ -90,15 +102,23 @@ const activateConnector = async (connectorName, activate, networkId) => {
         const { NoBscProviderError } = await import("../binance-wallet/errors");
 
         if (error instanceof NoBscProviderError) {
-          console.log("error", {
+          notify({
+            type: "error",
             title: "Provider Error",
             message: "Could not connect. No provider found",
+            error: error,
           });
           return;
         }
       }
     }
-    console.error(error);
+
+    notify({
+      type: "error",
+      title: "Error",
+      message: "Something went wrong",
+      error: error,
+    });
   });
 };
 
@@ -117,7 +137,7 @@ const deactivateConnector = async (deactivate, networkId) => {
   }
 };
 
-const useAuth = (networkId) => {
+const useAuth = (networkId, notify = noOp) => {
   const { activate, deactivate, library, connector } = useWeb3React();
 
   useEffect(() => {
@@ -147,8 +167,9 @@ const useAuth = (networkId) => {
   }, [connector, deactivate, networkId]);
 
   const login = useCallback(
-    (connectorName) => activateConnector(connectorName, activate, networkId),
-    [activate, networkId]
+    (connectorName) =>
+      activateConnector(connectorName, activate, networkId, notify),
+    [activate, networkId, notify]
   );
 
   const logout = useCallback(

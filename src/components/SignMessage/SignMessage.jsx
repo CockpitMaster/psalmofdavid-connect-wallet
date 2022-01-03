@@ -20,7 +20,7 @@ export const SignMessage = () => {
   };
 
   return (
-    <div className="pt-3 mt-16 border-t border-d4dfee">
+    <div className="pt-3 mt-16 border-t border-black">
       <Button onClick={onSign}>Sign message</Button>
 
       <Button onClick={() => setSignature("")}>Clear Signature</Button>

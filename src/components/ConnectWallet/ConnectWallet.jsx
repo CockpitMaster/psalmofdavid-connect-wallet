@@ -6,13 +6,14 @@ import { Popup } from "./Popup";
 import { ChainLogos, NetworkNames } from "@/lib/connect-wallet/config/chains";
 import { networkId } from "@/src/config/environment";
 import { Button } from "@/components/Button";
+import { useNotifier } from "@/src/hooks/useNotifier";
 
 export default function ConnectWallet() {
   const [isOpen, setIsOpen] = useState(false);
-
   const { active } = useWeb3React();
 
-  const { logout } = useAuth(networkId);
+  const { notifier } = useNotifier();
+  const { logout } = useAuth(networkId, notifier);
 
   function onClose() {
     setIsOpen(false);

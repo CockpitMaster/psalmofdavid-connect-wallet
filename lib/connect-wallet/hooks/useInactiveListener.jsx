@@ -4,8 +4,8 @@ import { ConnectorNames } from "../config/connectors";
 import { ACTIVE_CONNECTOR_KEY } from "../config/localstorage";
 import useAuth from "./useAuth";
 
-export function useInactiveListener(networkId) {
-  const { login, logout } = useAuth(networkId);
+export function useInactiveListener(networkId, notifier) {
+  const { login, logout } = useAuth(networkId, notifier);
   const { active, error, activate } = useWeb3React();
 
   useEffect(() => {
@@ -21,24 +21,24 @@ export function useInactiveListener(networkId) {
       const handleChainChanged = async (chainId) => {
         console.log("Handling 'chainChanged' event with payload", chainId);
         await logout();
-        login(ConnectorNames.Injected, networkId);
+        login(ConnectorNames.Injected);
       };
       const handleAccountsChanged = async (accounts) => {
         console.log("Handling 'accountsChanged' event with payload", accounts);
         if (accounts.length > 0) {
           await logout();
-          login(ConnectorNames.Injected, networkId);
+          login(ConnectorNames.Injected);
         }
       };
       // const handleConnect = async () => {
       //   console.log("Handling 'connect' event");
       //   await logout();
-      //   login(ConnectorNames.Injected, networkId);
+      //   login(ConnectorNames.Injected);
       // };
-      // const handleNetworkChanged = async (networkId) => {
-      //   console.log("Handling 'networkChanged' event with payload", networkId);
+      // const handleNetworkChanged = async (_networkId) => {
+      //   console.log("Handling 'networkChanged' event with payload", _networkId);
       //   await logout();
-      //   login(ConnectorNames.Injected, networkId);
+      //   login(ConnectorNames.Injected);
       // };
 
       ethereum.on("chainChanged", handleChainChanged);
@@ -55,7 +55,7 @@ export function useInactiveListener(networkId) {
         }
       };
     }
-  }, [active, error, activate, login, logout, networkId]);
+  }, [active, error, activate, login, logout]);
 
   useEffect(() => {
     const { BinanceChain } = window;
@@ -70,24 +70,24 @@ export function useInactiveListener(networkId) {
       const handleChainChanged = async (chainId) => {
         console.log("Handling 'chainChanged' event with payload", chainId);
         await logout();
-        login(ConnectorNames.BSC, networkId);
+        login(ConnectorNames.BSC);
       };
       const handleAccountsChanged = async (accounts) => {
         console.log("Handling 'accountsChanged' event with payload", accounts);
         if (accounts.length > 0) {
           await logout();
-          login(ConnectorNames.BSC, networkId);
+          login(ConnectorNames.BSC);
         }
       };
       // const handleConnect = async () => {
       //   console.log("Handling 'connect' event");
       //   await logout();
-      //   login(ConnectorNames.BSC, networkId);
+      //   login(ConnectorNames.BSC);
       // };
-      // const handleNetworkChanged = async (networkId) => {
-      //   console.log("Handling 'networkChanged' event with payload", networkId);
+      // const handleNetworkChanged = async (_networkId) => {
+      //   console.log("Handling 'networkChanged' event with payload", _networkId);
       //   await logout();
-      //   login(ConnectorNames.BSC, networkId);
+      //   login(ConnectorNames.BSC);
       // };
 
       BinanceChain.on("chainChanged", handleChainChanged);
@@ -104,5 +104,5 @@ export function useInactiveListener(networkId) {
         }
       };
     }
-  }, [active, error, activate, login, logout, networkId]);
+  }, [active, error, activate, login, logout]);
 }

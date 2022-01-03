@@ -17,23 +17,29 @@ const _binanceChainListener = async () =>
     })
   );
 
-export const useEagerConnect = (networkId) => {
-  const { login } = useAuth(networkId);
+export const useEagerConnect = (networkId, notifier) => {
+  const { login } = useAuth(networkId, notifier);
 
   useEffect(() => {
     const connectorName = window.localStorage.getItem(ACTIVE_CONNECTOR_KEY);
 
+    if (!connectorName) {
+      console.info("Unable to find connector from local storage");
+      return;
+    }
+
     if (connectorName === ConnectorNames.BSC) {
+      // window.BinanceChain might not be imediately available on page load
       const isConnectorBinanceChain = connectorName === ConnectorNames.BSC;
       const isBinanceChainDefined = Reflect.has(window, "BinanceChain");
 
       if (isConnectorBinanceChain && !isBinanceChainDefined) {
-        _binanceChainListener().then(() => login(connectorName, networkId));
+        _binanceChainListener().then(() => login(connectorName));
 
         return;
       }
     }
 
-    login(connectorName, networkId);
-  }, [login, networkId]);
+    login(connectorName);
+  }, [login]);
 };

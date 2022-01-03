@@ -10,11 +10,14 @@ import { useEffect, useState } from "react";
 import { Loader } from "@/components/Loader/Loader";
 import CloseIcon from "@/components/icons/close";
 import { networkId } from "@/src/config/environment";
+import { useNotifier } from "@/src/hooks/useNotifier";
 
 export const Popup = ({ isOpen, onClose }) => {
   const [isConnecting, setIsConnecting] = useState(false);
   const { active } = useWeb3React();
-  const { login } = useAuth(networkId);
+
+  const { notifier } = useNotifier();
+  const { login } = useAuth(networkId, notifier);
 
   useEffect(() => {
     if (!isOpen) setIsConnecting(false);

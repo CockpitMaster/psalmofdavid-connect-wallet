@@ -19,7 +19,7 @@ export const SimpleRW = () => {
 
   if (!contracts.SimpleRW[networkId]) {
     return (
-      <div className="pt-6 mt-16 border-t border-d4dfee">
+      <div className="pt-6 mt-16 border-t border-black">
         <strong className="font-semibold">SimpleRW Contract</strong> not
         deployed on{" "}
         <strong className="font-semibold">{NetworkNames[networkId]}</strong>
@@ -98,7 +98,7 @@ export const SimpleRW = () => {
   };
 
   return (
-    <div className="pt-3 mt-16 border-t border-d4dfee">
+    <div className="pt-3 mt-16 border-t border-black">
       <Button onClick={onIncrement}>Increment Count</Button>
       <Button onClick={fetchCount}>Read Count</Button>
       <Button onClick={fetchWhoAmI}>Who Am I?</Button>
