@@ -1,6 +1,6 @@
 import { useEffect } from "react";
-import { ConnectorNames } from "@/lib/connect-wallet/config/connectors";
-import { ACTIVE_CONNECTOR_KEY } from "@/lib/connect-wallet/config/localstorage";
+import { ConnectorNames } from "../config/connectors";
+import { ACTIVE_CONNECTOR_KEY } from "../config/localstorage";
 import useAuth from "./useAuth";
 
 const _binanceChainListener = async () =>
