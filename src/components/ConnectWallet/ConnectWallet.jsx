@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 import { useWeb3React } from "@web3-react/core";
-import useAuth from "src/hooks/useAuth";
+import useAuth from "@/lib/connect-wallet/hooks/useAuth";
 import { Popup } from "./Popup";
 import { ChainLogos, NetworkNames } from "@/lib/connect-wallet/config/chains";
 import { networkId } from "@/src/config/environment";

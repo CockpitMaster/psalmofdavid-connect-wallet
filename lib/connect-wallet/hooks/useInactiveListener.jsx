@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useWeb3React } from "@web3-react/core";
 import { ConnectorNames } from "@/lib/connect-wallet/config/connectors";
 import { ACTIVE_CONNECTOR_KEY } from "@/lib/connect-wallet/config/localstorage";
-import useAuth from "@/src/hooks/useAuth";
+import useAuth from "./useAuth";
 
 export function useInactiveListener(networkId) {
   const { login, logout } = useAuth(networkId);

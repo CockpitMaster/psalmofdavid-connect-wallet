@@ -1,6 +1,6 @@
 import { Dialog } from "@headlessui/react";
 
-import useAuth from "src/hooks/useAuth";
+import useAuth from "@/lib/connect-wallet/hooks/useAuth";
 import { wallets } from "@/lib/connect-wallet/config/wallets";
 import { Modal } from "@/components/Modal/Modal";
 import { useWeb3React } from "@web3-react/core";

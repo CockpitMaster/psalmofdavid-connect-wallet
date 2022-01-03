@@ -3,14 +3,8 @@ import ConnectWallet from "@/components/ConnectWallet/ConnectWallet";
 import { ConnectionDetails } from "@/components/ConnectionDetails/ConnectionDetails";
 import { SignMessage } from "@/components/SignMessage/SignMessage";
 import { SimpleRW } from "@/components/SimpleRW/SimpleRW";
-import { useEagerConnect } from "@/src/hooks/useEagerConnect";
-import { useInactiveListener } from "@/src/hooks/useInactiveListener";
-import { networkId } from "@/src/config/environment";
 
 export default function Home() {
-  useEagerConnect(networkId);
-  useInactiveListener(networkId);
-
   return (
     <div>
       <Head>
