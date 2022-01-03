@@ -1,9 +1,8 @@
+import { useEffect } from "react";
+import { useWeb3React } from "@web3-react/core";
 import { ConnectorNames } from "@/lib/connect-wallet/config/connectors";
 import { ACTIVE_CONNECTOR_KEY } from "@/lib/connect-wallet/config/localstorage";
-import { CHAIN_ID } from "@/src/config/environment";
 import useAuth from "@/src/hooks/useAuth";
-import { useWeb3React } from "@web3-react/core";
-import { useEffect } from "react";
 
 export function useInactiveListener(networkId) {
   const { login, logout } = useAuth(networkId);
@@ -56,7 +55,7 @@ export function useInactiveListener(networkId) {
         }
       };
     }
-  }, [active, error, activate, login, logout]);
+  }, [active, error, activate, login, logout, networkId]);
 
   useEffect(() => {
     const { BinanceChain } = window;
@@ -105,5 +104,5 @@ export function useInactiveListener(networkId) {
         }
       };
     }
-  }, [active, error, activate, login, logout]);
+  }, [active, error, activate, login, logout, networkId]);
 }

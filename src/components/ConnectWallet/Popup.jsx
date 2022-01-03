@@ -13,8 +13,8 @@ import { networkId } from "@/src/config/environment";
 
 export const Popup = ({ isOpen, onClose }) => {
   const [isConnecting, setIsConnecting] = useState(false);
-  const { active, account } = useWeb3React();
-  const { login, logout } = useAuth(networkId);
+  const { active } = useWeb3React();
+  const { login } = useAuth(networkId);
 
   useEffect(() => {
     if (!isOpen) setIsConnecting(false);

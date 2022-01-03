@@ -4,13 +4,13 @@ import { useWeb3React } from "@web3-react/core";
 import useAuth from "src/hooks/useAuth";
 import { Popup } from "./Popup";
 import { ChainLogos, NetworkNames } from "@/lib/connect-wallet/config/chains";
-import { CHAIN_ID, networkId } from "@/src/config/environment";
+import { networkId } from "@/src/config/environment";
 import { Button } from "@/components/Button";
 
 export default function ConnectWallet() {
   const [isOpen, setIsOpen] = useState(false);
 
-  const { active, account, chainId } = useWeb3React();
+  const { active } = useWeb3React();
 
   const { logout } = useAuth(networkId);
 

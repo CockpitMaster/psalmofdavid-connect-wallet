@@ -1,5 +1,3 @@
-import Link from "next/link";
-
 export const Option = (props) => {
   const { id, name, Icon, onClick } = props;
 

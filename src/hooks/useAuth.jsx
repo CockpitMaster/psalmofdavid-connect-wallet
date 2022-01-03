@@ -1,9 +1,7 @@
 import { useCallback, useEffect } from "react";
-
-import { CHAIN_ID } from "@/src/config/environment";
-import { ACTIVE_CONNECTOR_KEY } from "@/lib/connect-wallet/config/localstorage";
-
 import { UnsupportedChainIdError, useWeb3React } from "@web3-react/core";
+
+import { ACTIVE_CONNECTOR_KEY } from "@/lib/connect-wallet/config/localstorage";
 import { getConnectorByName } from "@/lib/connect-wallet/utils/connectors";
 import { wallets } from "@/lib/connect-wallet/config/wallets";
 import { NetworkNames } from "@/lib/connect-wallet/config/chains";
@@ -122,7 +120,7 @@ const deactivateConnector = async (deactivate, networkId) => {
 };
 
 const useAuth = (networkId) => {
-  const { activate, deactivate, chainId, library, connector } = useWeb3React();
+  const { activate, deactivate, library, connector } = useWeb3React();
 
   useEffect(() => {
     if (!library || !library.provider) {
