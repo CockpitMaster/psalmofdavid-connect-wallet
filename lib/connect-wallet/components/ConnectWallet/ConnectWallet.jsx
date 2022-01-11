@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 import { useWeb3React } from "@web3-react/core";
-import useAuth from "@/lib/connect-wallet/hooks/useAuth";
+import useAuth from "../../hooks/useAuth";
 import { Popup } from "./Popup";
 
 export default function ConnectWallet({ networkId, notifier, children }) {
@@ -24,7 +24,7 @@ export default function ConnectWallet({ networkId, notifier, children }) {
 
   return (
     <>
-      <div className="flex items-center">{children({ onOpen, logout })}</div>
+      {children({ onOpen, logout })}
       <Popup
         isOpen={isOpen}
         onClose={onClose}
