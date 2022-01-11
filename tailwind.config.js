@@ -1,6 +1,6 @@
 module.exports = {
   content: ["./src/**/*.{js,ts,jsx,tsx}", "./lib/**/*.{js,ts,jsx,tsx}"],
-  darkMode: false, // or 'media' or 'class'
+  darkMode: "media", // or 'media' or 'class'
   theme: {
     fontFamily: {
       poppins: "Poppins, sans-serif",
@@ -31,13 +31,18 @@ module.exports = {
       ],
     },
     colors: {
-      transparent: "transparent",
-      current: "currentColor",
-      black: "#01052d",
-      white: "#fefeff",
+      "transparent": "transparent",
+      "current": "currentColor",
+      "black": "#01052d",
+      "white": "#fefeff",
       "4e7dd9": "#4e7dd9",
-      d4dfee: "#d4dfee",
-      f1f3f6: "#f1f3f6",
+      "d4dfee": "#d4dfee",
+      "f1f3f6": "#f1f3f6",
+    },
+    extend: {
+      minWidth: {
+        sm: "384px",
+      },
     },
   },
   variants: {
