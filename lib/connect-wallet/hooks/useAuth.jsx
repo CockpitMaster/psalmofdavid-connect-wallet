@@ -37,7 +37,7 @@ const activateConnector = async (
       window.localStorage.removeItem(ACTIVE_CONNECTOR_KEY);
 
       const wallet = wallets.find(
-        (wallet) => wallet.connectorName === connectorName
+        (_wallet) => _wallet.connectorName === connectorName
       );
 
       notify({
