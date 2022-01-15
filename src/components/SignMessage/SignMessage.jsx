@@ -15,8 +15,8 @@ export const SignMessage = () => {
   const signer = getSigner(library);
 
   const onSign = async () => {
-    const signature = await signer.signMessage("hello");
-    setSignature(signature);
+    const _signature = await signer.signMessage("hello");
+    setSignature(_signature);
   };
 
   return (

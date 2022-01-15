@@ -24,5 +24,6 @@
     "editor.tabSize": 2,
     "javascript.preferences.importModuleSpecifier": "non-relative",
     "color-highlight.markerType": "dot-before",
+    "javascript.validate.enable": false,
     "color-highlight.markRuler": false,
 }
